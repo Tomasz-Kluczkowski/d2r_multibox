@@ -5,11 +5,11 @@ Sleep(2500)
 
 $CREATE_ACTION = "create"
 $JOIN_ACTION = "join"
-$DEFAULT_GAME_PASSWORD = "tomkilt"
 
 $D2R_WINDOW_NAME = $CmdLine[1]
 $ACTION = $CmdLine[2]
 $GAME_NAME = $CmdLine[3]
+$GAME_PASSWORD = $CmdLine[4]
 
 ;~ Change title of the window for easier identification and focus it
 WinWaitActive("Diablo II: Resurrected", "", 1)
@@ -30,20 +30,20 @@ EndFunc
 Func GetToLobby()
 	; Skip Blizzard Logo video
 	Send("{SPACE}")
-	Sleep(1500)
+	Sleep(3500)
 
 	;~ Skip D2R logo video
 	Send("{SPACE}")
-	Sleep(7000)
+	Sleep(8000)
 
 	;~ Skip title screen
 	Send("{SPACE}")
 
 	;~ Wait for battle net connection
-	Sleep(11000)
+	Sleep(20000)
 
 	;~ move to the lobby button and click it
-	MoveInsideGameWindow(0.56, 0.9)
+	MoveInsideGameWindow(0.56, 0.91)
 	MouseClick($MOUSE_CLICK_LEFT)
 	Sleep(1000)
 EndFunc
@@ -62,11 +62,11 @@ EndFunc
 
 Func CreateGame($GameName, $GamePassword)
 	;~ Click on create game tab
-	MoveInsideGameWindow(0.67, 0.08)
+	MoveInsideGameWindow(0.68, 0.09)
 	MouseClick($MOUSE_CLICK_LEFT)
 
 	;~ Click on game name field
-	MoveInsideGameWindow(0.7, 0.16)
+	MoveInsideGameWindow(0.7, 0.19)
 	MouseClick($MOUSE_CLICK_LEFT)
 
 	;~ Enter game name and password and enter
@@ -80,7 +80,7 @@ Func JoinGame($GameName, $GamePassword)
 	MouseClick($MOUSE_CLICK_LEFT)
 
 	;~ Click on game name field
-	MoveInsideGameWindow(0.65, 0.13)
+	MoveInsideGameWindow(0.65, 0.17)
 	MouseClick($MOUSE_CLICK_LEFT)
 
 	;~ Enter game name and password and enter
@@ -94,7 +94,7 @@ EndFunc
 GetToLobby()
 
 If $ACTION = $CREATE_ACTION Then
-	CreateGame($GAME_NAME, $DEFAULT_GAME_PASSWORD)
+	CreateGame($GAME_NAME, $GAME_PASSWORD)
 ElseIf $ACTION = $JOIN_ACTION Then
-	JoinGame($GAME_NAME, $DEFAULT_GAME_PASSWORD)
+	JoinGame($GAME_NAME, $GAME_PASSWORD)
 EndIf

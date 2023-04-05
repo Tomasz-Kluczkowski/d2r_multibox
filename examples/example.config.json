@@ -1,0 +1,20 @@
+{
+  "session_details": {
+    "default_game_name": "blah",
+    "default_game_password": "pass"
+  },
+  "bnet_accounts": [
+    {
+      "username": "myuser@gmail.com",
+      "password": "superhardpassword101",
+      "d2r_path": "C:\\Program Files (x86)\\GAMES\\Diablo II Resurrected - Client1\\D2R.exe",
+      "action": "create"
+    },
+    {
+      "username": "myuser1@gmail.com",
+      "password": "elitehardnotpossibletocrackpassword|-:)",
+      "d2r_path": "C:\\Program Files (x86)\\GAMES\\Diablo II Resurrected - Client2\\D2R.exe",
+      "action": "join"
+    }
+  ]
+}

@@ -28,6 +28,6 @@ $RECYCLE.BIN/
 
 # Project files
 d2r_handles.txt
-.bnet_accounts.json
-.bnet_accounts.json.backup
 StartD2R_Client*.ps1
+.config.json
+.config.json.backup

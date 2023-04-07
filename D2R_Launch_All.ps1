@@ -17,12 +17,12 @@ ForEach ($bnet_account in $bnet_accounts) {
     
     # Start instance of D2R
     Start-Process -NoNewWindow -FilePath "$($bnet_account.d2r_path)" `
-    -ArgumentList "-username $($bnet_account.username) -password $($bnet_account.password) -address eu.actual.battle.net -nosound"
+    -ArgumentList "-username $($bnet_account.username) -password $($bnet_account.password) -address eu.actual.battle.net -nosound" 
     
     # Kill handle retricting to 1 copy of D2R
     & Start-Process -NoNewWindow powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\D2Rhandle.ps1`""
     
     # Create or join game
     & Start-Process -NoNewWindow -Wait -FilePath "${env:ProgramFiles(x86)}\AutoIt3\AutoIt3.exe" `
-    -ArgumentList "/AutoIt3ExecuteScript C:\Users\tomas\GAME_UTILS\d2R_handle\join_or_create_game.au3 $($d2r_window_name) $($bnet_account.action) $($game_name) $($game_password)"
+    -ArgumentList "/AutoIt3ExecuteScript $PSScriptRoot\join_or_create_game.au3 $($d2r_window_name) $($bnet_account.action) $($game_name) $($game_password)"
 }

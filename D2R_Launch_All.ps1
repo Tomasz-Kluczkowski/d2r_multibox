@@ -5,8 +5,8 @@ $bnet_accounts = $configuration.bnet_accounts
 $default_game_name = $configuration.session_details.default_game_name
 $default_game_password = $configuration.session_details.default_game_password
 
-$game_name = if ($value = Read-Host -Prompt "Please enter game name [$default_game_name]") {$value} else {$default_game_name}
-$game_password = if ($value = Read-Host -Prompt "Please enter game password [$default_game_password]") {$value} else {$default_game_password}
+$game_name = if ($value = Read-Host -Prompt "Please enter game name [default: $default_game_name]") {$value} else {$default_game_name}
+$game_password = if ($value = Read-Host -Prompt "Please enter game password [default: $default_game_password]") {$value} else {$default_game_password}
 
 
 
@@ -16,7 +16,8 @@ ForEach ($bnet_account in $bnet_accounts) {
     $bnet_user_number += 1
     
     # Start instance of D2R
-    Start-Process -NoNewWindow -FilePath "$($bnet_account.d2r_path)" -ArgumentList "-username $($bnet_account.username) -password $($bnet_account.password) -address eu.actual.battle.net -nosound"
+    Start-Process -NoNewWindow -FilePath "$($bnet_account.d2r_path)" `
+    -ArgumentList "-username $($bnet_account.username) -password $($bnet_account.password) -address eu.actual.battle.net -nosound"
     
     # Kill handle retricting to 1 copy of D2R
     & Start-Process -NoNewWindow powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\D2Rhandle.ps1`""

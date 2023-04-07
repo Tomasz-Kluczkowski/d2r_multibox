@@ -34,7 +34,7 @@ Func GetToLobby()
 
 	;~ Skip D2R logo video
 	Send("{SPACE}")
-	Sleep(8000)
+	Sleep(9000)
 
 	;~ Skip title screen
 	Send("{SPACE}")
@@ -54,8 +54,15 @@ Func FillGameDetails($GameName, $GamePassword)
 	Send("{TAB}")
 	Send($GamePassword)
 	Send("{ENTER}")
-	;~ Wait for game to open and minimise window
-	Sleep(8000)
+	;~ Wait for game to open
+	Sleep(12000)
+
+	;~ move the character
+	MoveInsideGameWindow(0.7, 0.7)
+	MouseClick($MOUSE_CLICK_LEFT)
+	Sleep(1000)
+
+	;~ minimise current game window to reduce load on cpu/ram/gpu
 	WinSetState($d2r_window, "",  @SW_MINIMIZE)
 EndFunc
 

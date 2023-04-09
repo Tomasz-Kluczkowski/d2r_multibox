@@ -51,6 +51,11 @@ Also see `examples/.config.json`.
         "default_game_name": "blah",
         "default_game_password": "pass"
     },
+    "d2r_instance_settings": {
+        "cpu_affinity_enabled": "true",
+        "separate_cpu_cores_per_instance": "false",
+        "cpu_cores_per_d2r_instance": 16
+    },
     "bnet_accounts": [
         {
         "username": "<your battlenet account username 1>",
@@ -83,3 +88,8 @@ Where `action` can be:
 Once you set everything up as in instructions above, run `D2R_Launch_All.ps1` with administrator priviledges (required for `handle64.exe` to be able to kill the process that blocks mutliple D2R.exe copies on one machine).
 
 **NOTE**: AutoIt will be controlling your mouse and keyboard to get to lobby and create/join game for each battlenet account data present in `.config.json`.
+
+## Cpu affinity
+
+I have noticed that past 4 instances on same machine, no matter how many cores you have (I have 32) the game will overload certain cores and cause network timeouts. To avoid that you have to spread the workload by enabling cpu affinity setting in `.config.json`.
+Set the `cpu_cores_per_d2r_instance` to some reasonable amount for your system.

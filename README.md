@@ -13,20 +13,25 @@ What this repo does:
 
 <br>
 
-## NOTE: this code uses `handle64.exe` to kill the process that D2R.exe runs (to block mutliple copies). The executable is included in the repo for ease of use but you can remove it and copy yourself from official Microsoft download location here: https://learn.microsoft.com/en-us/sysinternals/downloads/handle
+## NOTE 1: 
+this code uses `handle64.exe` to kill the process that D2R.exe runs which block running mutliple instances of D2R.exe. The executable is included in the repo for ease of use but you can remove it and copy yourself from official Microsoft download location here: https://learn.microsoft.com/en-us/sysinternals/downloads/handle
+
+## NOTE 2:
+this code uses AutoIt community image recognition library from this blog post: https://www.autoitscript.com/forum/files/file/471-image-search-udf/.
+All creadit goes to: https://www.autoitscript.com/forum/profile/103606-trong/
 
 <br>
 
 **Warning**: I cannot guarantee that AutoIt will be able to click on game buttons correctly as it depends on what resolution you run the game on.
 
-I have tested that this works when game runs on 1920 x 1080. The reason is to be able to see multiple windows at once on one monitor.
-Feel free to experiment with the mouse movements to adjust to your needs.
+I have tested that this works when game runs on 1920 x 1080 in widowed mode. All the images of game buttons etc are taken at that resolution. If you do not stick to it, it will most likely not find the images required to navigate the menus and fail to work.
 
 Also be aware that you cannot have separate settings per idling clients which join the game just to increase player count and your main battlenet client - every time you change settings all clients will use them next time they launch.
 
 I simply start this on a spare laptop but one could play with sandboxes, virtual machines etc - I just thought it is too much effort :).
 
-**NOTE**: there is absolutely minimal exception handling - you have been warned, if something does not work, make a PR :P I am not an AutoIt expert and whacked this in between gaming sessions, but ideally this should work no matter the game screen resolution (which I tried to achieve with relative mouse movements but to no avail).
+## NOTE 3:
+there is absolutely minimal exception handling - you have been warned, if something does not work, make a PR :P I am not an AutoIt expert and whacked this in between gaming sessions, but ideally this should work no matter the game screen resolution (which I tried to achieve with relative mouse movements but to no avail).
 
 ## Required software installations:
 
@@ -38,10 +43,11 @@ I simply start this on a spare laptop but one could play with sandboxes, virtual
 
 - create multiple battlenet accounts.
 - buy multiple copies of the game, 1 per battlenet account by logging to one at a time and purchasing it for that account.
-- copy game contents into a new folder, each client should have its own complete game filesystem to avoid performance issues. 
+- copy main installation game contents into a new folder, each client should have its own complete game filesystem to avoid performance issues. 
 - download this repo to your machine: `git clone https://github.com/Tomasz-Kluczkowski/d2r_multibox.git`.
-- create `.config.json` file in the root of the repo (it is git ignored so do not worry), see example below for its contents per battlenet account. This file will hold details of your accounts so that powershell can launch the game without Battlenet launcher and log in right away.
-- configure your `idling` game clients to run on 1280 x 720 resolution with minimum details (and on a separate machine/VM/sandbox etc)
+- create `.config.json` file in the root of the repo (it is git ignored so do not worry), see example below for its contents per battlenet account. This file will hold details of your accounts so that powershell can launch the game without Battlenet launcher and log in right away plus script configuration.
+- configure your `idling` game clients to run on 1920 x 1080 resolution with minimum details (and on a separate machine/VM/sandbox etc)
+- make sure your desktop settings are set to 100% scale (no changes to DPI etc)
 
 Also see `examples/.config.json`.
 
@@ -75,8 +81,8 @@ Also see `examples/.config.json`.
 ```
 
 Where `action` can be:
-- create, to create a game
-- join, to join a game
+- **create**, to create a game
+- **join**, to join a game
 
 ## Launching multiple D2R.exe on your machine
 

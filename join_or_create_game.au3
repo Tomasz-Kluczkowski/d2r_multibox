@@ -1,4 +1,7 @@
 #include <AutoItConstants.au3>
+#include "libs\AutoIT_ImageSearchUDF\_ImageSearch_UDF.au3"
+
+Global $IMAGE_SEARCH_TIMEOUT = 60000
 
 ;~ Wait for game to fully boot and set its window size to the one set in game options
 Sleep(2500)
@@ -27,6 +30,17 @@ Func MoveInsideGameWindow($RelativeXMove, $RelativeYMove)
 	MouseMove($WinXPos + $RelativeXMove * $WinWidth, $WinYPos + $RelativeYMove * $WinHeight, 5)
 EndFunc
 
+Func WaitForImage($ImageFileName, $MoveToImage = True, $ClickMouse = True, $CenterPosition = True, $Timeout = $IMAGE_SEARCH_TIMEOUT, $Tolerance = 0)
+	$result = _ImageSearch_Wait(@ScriptDir & "\" & "d2r_game_images" & "\" & $ImageFileName, $TimeOut, $Tolerance, $CenterPosition)
+	
+	If ($MoveToImage) Then
+		MouseMove($result[1], $result[2], 5)
+	EndIf
+	If ($ClickMouse) Then
+		MouseClick($MOUSE_CLICK_LEFT)
+	EndIf
+EndFunc
+
 Func GetToLobby()
 	; Skip Blizzard Logo video
 	Send("{SPACE}")
@@ -34,17 +48,12 @@ Func GetToLobby()
 
 	;~ Skip D2R logo video
 	Send("{SPACE}")
-	Sleep(9000)
 
 	;~ Skip title screen
-	Send("{SPACE}")
-
-	;~ Wait for battle net connection
-	Sleep(20000)
+	WaitForImage("title_screen_prod.bmp", False)
 
 	;~ move to the lobby button and click it
-	MoveInsideGameWindow(0.56, 0.91)
-	MouseClick($MOUSE_CLICK_LEFT)
+	WaitForImage("lobby_button.bmp")
 	Sleep(1000)
 EndFunc
 
@@ -54,8 +63,9 @@ Func FillGameDetails($GameName, $GamePassword)
 	Send("{TAB}")
 	Send($GamePassword)
 	Send("{ENTER}")
+
 	;~ Wait for game to open
-	Sleep(12000)
+	WaitForImage("game_menu_button.bmp", False, False)
 
 	;~ move the character
 	MoveInsideGameWindow(0.7, 0.7)
@@ -69,12 +79,10 @@ EndFunc
 
 Func CreateGame($GameName, $GamePassword)
 	;~ Click on create game tab
-	MoveInsideGameWindow(0.68, 0.09)
-	MouseClick($MOUSE_CLICK_LEFT)
+	WaitForImage("create_game_button_dim.bmp")
 
 	;~ Click on game name field
-	MoveInsideGameWindow(0.7, 0.19)
-	MouseClick($MOUSE_CLICK_LEFT)
+	WaitForImage("create_game_name_field.bmp")
 
 	;~ Enter game name and password and enter
 	FillGameDetails($GameName, $GamePassword)
@@ -83,12 +91,10 @@ EndFunc
 
 Func JoinGame($GameName, $GamePassword)
 	;~ Click on join game tab
-	MoveInsideGameWindow(0.75, 0.08)
-	MouseClick($MOUSE_CLICK_LEFT)
+	WaitForImage("join_game_button.bmp")
 
 	;~ Click on game name field
-	MoveInsideGameWindow(0.65, 0.17)
-	MouseClick($MOUSE_CLICK_LEFT)
+	WaitForImage("join_game_name_field.bmp")
 
 	;~ Enter game name and password and enter
 	FillGameDetails($GameName, $GamePassword)

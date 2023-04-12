@@ -14,7 +14,7 @@ What this repo does:
 <br>
 
 ## NOTE 1: 
-this code uses `handle64.exe` to kill the process that D2R.exe runs which block running mutliple instances of D2R.exe. The executable is included in the repo for ease of use but you can remove it and copy yourself from official Microsoft download location here: https://learn.microsoft.com/en-us/sysinternals/downloads/handle
+this code uses `handle64.exe` to kill the process that D2R.exe runs which blocks running mutliple instances of D2R.exe. The executable is included in the repo for ease of use but you can remove it and copy yourself from official Microsoft download location here: https://learn.microsoft.com/en-us/sysinternals/downloads/handle
 
 ## NOTE 2:
 this code uses AutoIt community image recognition library from this blog post: https://www.autoitscript.com/forum/files/file/471-image-search-udf/.
@@ -22,9 +22,9 @@ All creadit goes to: https://www.autoitscript.com/forum/profile/103606-trong/
 
 <br>
 
-**Warning**: I cannot guarantee that AutoIt will be able to click on game buttons correctly as it depends on what resolution you run the game on.
+**Warning**: I cannot guarantee that AutoIt will be able to click on game buttons correctly as it depends on what resolution you run the game on and the scaling of your screen.
 
-I have tested that this works when game runs on 1920 x 1080 in widowed mode. All the images of game buttons etc are taken at that resolution. If you do not stick to it, it will most likely not find the images required to navigate the menus and fail to work.
+I have tested that this works when game runs on 1920 x 1080 in widowed mode on a 4k monitor. All the images of game buttons etc are taken at that resolution. If you do not stick to it, it will most likely not find the images required to navigate the menus and fail to work.
 
 Also be aware that you cannot have separate settings per idling clients which join the game just to increase player count and your main battlenet client - every time you change settings all clients will use them next time they launch.
 
@@ -35,7 +35,7 @@ there is absolutely minimal exception handling - you have been warned, if someth
 
 ## Required software installations:
 
-- You need to install AutoIt (I used v3.3.14.3 at the time): https://www.autoitscript.com/site/autoit/downloads/.
+- You need to install AutoIt (I used v3.3.14.3 at the time and installed it to default folder ProgramFiles(x86)\AutoIt3): https://www.autoitscript.com/site/autoit/downloads/.
 - You need to have working powershell on your machine (I used 7.3 at the time): https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3.
 
 
@@ -45,19 +45,22 @@ there is absolutely minimal exception handling - you have been warned, if someth
 - buy multiple copies of the game, 1 per battlenet account by logging to one at a time and purchasing it for that account.
 - copy main installation game contents into a new folder, each client should have its own complete game filesystem to avoid performance issues. 
 - download this repo to your machine: `git clone https://github.com/Tomasz-Kluczkowski/d2r_multibox.git`.
-- create `.config.json` file in the root of the repo (it is git ignored so do not worry), see example below for its contents per battlenet account. This file will hold details of your accounts so that powershell can launch the game without Battlenet launcher and log in right away plus script configuration.
+- create `.config.json` file in the root of the repo (it is git ignored so do not worry), see example below for its contents. This file will hold details of your accounts so that powershell can launch the game without Battlenet launcher and log in right away plus script configuration.
 - configure your `idling` game clients to run on 1920 x 1080 resolution with minimum details (and on a separate machine/VM/sandbox etc)
 - make sure your desktop settings are set to 100% scale (no changes to DPI etc)
+
+
+## Example configuration
 
 Also see `examples/.config.json`.
 
 ```json
 {
-    "session_details": {
+    "game_session_settings": {
         "default_game_name": "blah",
         "default_game_password": "pass"
     },
-    "bnet_accounts": [
+    "d2r_instances_settings": [
         {
         "username": "<your battlenet account username 1>",
         "password": "your battlenet account password 1",
@@ -74,7 +77,7 @@ Also see `examples/.config.json`.
 }
 ```
 
-**IMPORTANT**: since you are creating a valid json structure, the backslash characters in the path have to be escaped. See example below:
+**IMPORTANT**: since you are creating a valid json structure, the backslash characters in the d2r_path have to be escaped. See example below:
 
 ```json
 "d2r_path": "C:\\Program Files (x86)\\GAMES\\Diablo II Resurrected - Client1\\D2R.exe"
@@ -86,6 +89,6 @@ Where `action` can be:
 
 ## Launching multiple D2R.exe on your machine
 
-Once you set everything up as in instructions above, run `D2R_Launch_All.ps1` with administrator priviledges (required for `handle64.exe` to be able to kill the process that blocks mutliple D2R.exe copies on one machine).
+Once you set everything up as in instructions above, run `D2R_Launch_All.ps1` with administrator priviledges (required for `handle64.exe` to be able to kill the process that blocks running mutliple D2R.exe copies on one machine).
 
 **NOTE**: AutoIt will be controlling your mouse and keyboard to get to lobby and create/join game for each battlenet account data present in `.config.json`.

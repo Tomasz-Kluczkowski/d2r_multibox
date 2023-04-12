@@ -1,9 +1,9 @@
 {
-  "session_details": {
+  "game_session_settings": {
     "default_game_name": "blah",
     "default_game_password": "pass"
   },
-  "bnet_accounts": [
+  "d2r_instances_settings": [
     {
       "username": "myuser@gmail.com",
       "password": "superhardpassword101",

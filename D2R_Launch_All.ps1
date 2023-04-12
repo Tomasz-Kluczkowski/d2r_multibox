@@ -1,9 +1,9 @@
 ﻿if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 $configuration = Get-Content -Raw -Path "$PSScriptRoot/.config.json" | ConvertFrom-Json
-$bnet_accounts = $configuration.bnet_accounts
-$default_game_name = $configuration.session_details.default_game_name
-$default_game_password = $configuration.session_details.default_game_password
+$d2r_instances_settings = $configuration.d2r_instances_settings
+$default_game_name = $configuration.game_session_settings.default_game_name
+$default_game_password = $configuration.game_session_settings.default_game_password
 
 $game_name = if ($value = Read-Host -Prompt "Please enter game name [default: $default_game_name]") {$value} else {$default_game_name}
 $game_password = if ($value = Read-Host -Prompt "Please enter game password [default: $default_game_password]") {$value} else {$default_game_password}
@@ -11,7 +11,7 @@ $game_password = if ($value = Read-Host -Prompt "Please enter game password [def
 
 
 $bnet_user_number = 1
-ForEach ($bnet_account in $bnet_accounts) {
+ForEach ($d2r_instance_settings in $d2r_instances_settings) {
     $d2r_window_name = "D2R_BN_$($bnet_user_number)"
     $bnet_user_number += 1
     
